@@ -27,7 +27,11 @@
                 <div class="modal-body">
                     <form id="form_create">
                         <input type="text" name="title" id="title" placeholder="title">
+                        <pre class='text-danger text-center' id="error_title_create"></pre>
+
                         <input type="text" name="description" id="description" placeholder="description">
+                        <pre class='text-danger text-center' id="error_description_create"></pre>
+
                         <button type="submit" id="form_create_btn">Submit</button>
                     </form>
                 </div>
@@ -50,10 +54,10 @@
                         <input type="text" hidden name="todo_id" id="todo_id">
 
                         <input type="text" name="title" id="title_edit" placeholder="title">
-                        <pre id="error-title"></pre>
+                        <pre class='text-danger text-center' id="error-title"></pre>
 
                         <input type="text" name="description" id="description_edit" placeholder="description">
-                        <pre id="error-description"></pre>
+                        <pre class='text-danger text-center' id="error-description"></pre>
 
 
                         <div class="tag active">
@@ -332,8 +336,25 @@
                                     }
 
                                 }
-                            ).fail(function() {
-                                alert("error");
+                            ).fail(function(xhr) {
+                                if (Object.keys(xhr.responseJSON.errors).length > 0) {
+
+                                    if (xhr.responseJSON.errors.title !== undefined) {
+                                        xhr.responseJSON.errors.title.forEach((error) => {
+                                            $("#error_title_create").html(error +
+                                                '</br>')
+                                        })
+                                    }
+
+                                    if (xhr.responseJSON.errors.description !== undefined) {
+                                        xhr.responseJSON.errors.description.forEach((error) => {
+                                            $("#error_description_create").html(error +
+                                                '</br>')
+                                        })
+                                    }
+                                } else {
+                                    alert('Something went wrong')
+                                }
                             })
                             .always(function() {
                                 elSubmit.text('Submit')

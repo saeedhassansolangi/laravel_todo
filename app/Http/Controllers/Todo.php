@@ -51,8 +51,11 @@ class Todo extends BaseController
   {
 
     $req->validate([
-      'title' => ['required', 'max:30'],
-      'description' => ['required'],
+      'title' => ['required', 'min:5', 'max:30'],
+      'description' => [
+        'required',
+        'min:5',
+      ],
     ]);
 
     $title = $req->title;
@@ -100,8 +103,8 @@ class Todo extends BaseController
 
     $req->validate([
       "todo_id" => ['required'],
-      'title' => ['required', 'string', 'max:30'],
-      'description' => ['required', 'string'],
+      'title' => ['required', 'string', 'min:5', 'max:30'],
+      'description' => ['required', 'min:5', 'string'],
       'status' => ['required']
     ]);
 
@@ -126,8 +129,8 @@ class Todo extends BaseController
   {
     $req->validate([
       "todo_id" => ['required'],
-      'title' => ['required', 'string', 'max:30'],
-      'description' => ['required', 'string'],
+      'title' => ['required', 'string', 'min:5', 'max:30'],
+      'description' => ['required', 'min:5', 'string'],
       'status' => ['required']
     ]);
 
