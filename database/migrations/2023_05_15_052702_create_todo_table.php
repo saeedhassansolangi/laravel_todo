@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        // todo is the table name
+        Schema::create('todo', function (Blueprint $table) {
+            // these below are the columns
+            $table->id();
+            $table->string('task_title');
+            $table->string('task_description');
+            $table->boolean('is_task_complete')->default(false);
+            // $table->timestamps(); // created_at and updated_at
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('todo');
+    }
+};
