@@ -9,45 +9,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Todo extends BaseController
 {
-  public function showTodos(Request $req)
+
+
+  public function showHomePage()
   {
-    return view('todo_show', ['todos' => DB::select('select * from todo')]);
+    return view('todo_show');
   }
 
-  public function showTodo1s(Request $req)
+  public function getAllTodos()
   {
     return Response::json(array('todos' => DB::select('select * from todo')));
   }
 
-  public function showForm()
-  {
-    return view('todo_create');
-  }
-
-  // public function addTodo(Request $req)
-  // {
-
-
-  //   $req->validate([
-  //     'title' => ['required', 'max:30'],
-  //     'description' => ['required'],
-  //   ]);
-
-  //   $title = $req->title;
-  //   $desc = $req->description;
-  //   $query = 'insert into todo (task_title, task_description) values (?, ?)';
-
-  //   try {
-  //     DB::insert($query, [$title, $desc]);
-  //     return redirect('/');
-  //   } catch (\Throwable $th) {
-  //     return $th->getMessage();
-  //   }
-  // }
-
-  // 
-
-  public function addSingleTodo(Request $req)
+  public function createTodo(Request $req)
   {
 
     $req->validate([
@@ -63,13 +37,7 @@ class Todo extends BaseController
     $query = 'insert into todo (task_title, task_description) values (?, ?)';
 
     try {
-      $isInserted = DB::insert($query, [$title, $desc]);
-
-      // return Response::json(
-      //   array(
-      //     'messgage' => $isInserted // {"messgage":true}
-      //   )
-      // );
+      DB::insert($query, [$title, $desc]);
 
       return Response::json(
         array('message' => 'success'), status: 201
@@ -84,29 +52,22 @@ class Todo extends BaseController
     }
   }
 
-
-  public function todoShowUpdateForm($id)
-  {
-    return view('todo_update', ['todo' => DB::table('todo')->where('id', $id)->first()]);
-  }
-
-  // getSingleTodo
   public function getSingleTodo($id)
   {
     return Response::json(['todo' => DB::table('todo')->where('id', $id)->first()], status: 200);
   }
 
-
   public function todoUpdate(Request $req)
   {
-
-
     $req->validate([
       "todo_id" => ['required'],
       'title' => ['required', 'string', 'min:5', 'max:30'],
       'description' => ['required', 'min:5', 'string'],
       'status' => ['required']
     ]);
+
+    dd($req);
+
 
     $id = $req->todo_id;
     $title = $req->title;
@@ -125,7 +86,7 @@ class Todo extends BaseController
     }
   }
 
-  public function updateSingleTodo(Request $req)
+  public function editTodo(Request $req)
   {
     $req->validate([
       "todo_id" => ['required'],
@@ -173,7 +134,7 @@ class Todo extends BaseController
     }
   }
 
-  public function todoSingleDelete($id)
+  public function deleteTodo($id)
   {
 
     try {
@@ -199,6 +160,46 @@ class Todo extends BaseController
       );
     }
   }
+
+
+  public function todoShowUpdateForm($id)
+  {
+    return view('todo_update', ['todo' => DB::table('todo')->where('id', $id)->first()]);
+  }
+
+  // public function showForm()
+  // {
+  //   return view('todo_create');
+  // }
+
+
+  // public function showTodos()
+  // {
+  //   return view('todo_show', ['todos' => DB::select('select * from todo')]);
+  // }
+
+  // public function addTodo(Request $req)
+  // {
+
+
+  //   $req->validate([
+  //     'title' => ['required', 'max:30'],
+  //     'description' => ['required'],
+  //   ]);
+
+  //   $title = $req->title;
+  //   $desc = $req->description;
+  //   $query = 'insert into todo (task_title, task_description) values (?, ?)';
+
+  //   try {
+  //     DB::insert($query, [$title, $desc]);
+  //     return redirect('/');
+  //   } catch (\Throwable $th) {
+  //     return $th->getMessage();
+  //   }
+  // }
+
+  // 
 
   // public function show()
   // {

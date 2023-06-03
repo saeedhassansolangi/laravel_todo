@@ -8,7 +8,7 @@
 @section('content')
     <h1>Todos</h1>
 
-    <button type="button" data-toggle="modal" data-target="#create_todo_modal">
+    <button type="button" data-toggle="modal" onclick="resetForm()" data-target="#create_todo_modal">
         Create Todo
     </button>
 
@@ -58,7 +58,6 @@
 
                         <input type="text" name="description" id="description_edit" placeholder="description">
                         <pre class='text-danger text-center' id="error-description"></pre>
-
 
                         <div class="tag active">
                             <label>Active:</label>
@@ -189,8 +188,9 @@
                     function onDeleteTodo(e, todoId) {
                         const btnContainer = $(e.currentTarget).closest('div')
                         const el = e.target.getAttribute('aria-todo-id');
-                        let url = '{{ route('delete_single_todo', ['id' => ':todoId']) }}'.replace(
-                            ':todoId', todoId);
+                        let url = '{{ route('delete_single_todo', ['id' => ':todoId']) }}'
+                            .replace(
+                                ':todoId', todoId);
 
 
                         $.get(url, function(data, status) {
@@ -204,9 +204,10 @@
 
                     function onEditTodo(e, todoId) {
 
-                        let url = '{{ route('get_single_todo', ['id' => ':todoId']) }}'.replace(
-                            ':todoId',
-                            todoId);
+                        let url = '{{ route('get_single_todo', ['id' => ':todoId']) }}'
+                            .replace(
+                                ':todoId',
+                                todoId);
 
                         $.get(url, function(data, status) {
                             $('#title_edit').val(data.todo.task_title);
@@ -308,10 +309,19 @@
                         }
                     }
 
+
+                    function resetForm() {
+                        alert('yes called')
+                        $("#error_title_create").empty();
+                        $("#error_description_create").empty();
+                        $('#form_create')[0].reset()
+
+                    }
+
+
                     $('#form_create').on('submit', function(e) {
                         const elSubmit = $('#form_create_btn')
                         e.preventDefault();
-
                         const title = $('#title').val();
                         const description = $('#description').val()
 
@@ -358,10 +368,17 @@
                             })
                             .always(function() {
                                 elSubmit.text('Submit')
-                                $('#form_create')[0].reset();
+                                $('#form_create').reset();
+
                             });
 
                     })
+                })
+
+                $('#create_todo_modal').on('hidden.bs.modal', function() {
+                    $(this).find('#form_create').trigger('reset');
+                    $("#error_title_create").empty();
+                    $("#error_description_create").empty();
                 })
 
 
