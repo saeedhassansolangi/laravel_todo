@@ -8,7 +8,7 @@
 @section('content')
     <h1>Todos</h1>
 
-    <button type="button" data-toggle="modal" onclick="resetForm()" data-target="#create_todo_modal">
+    <button class="btn btn-primary" type="button" data-toggle="modal" onclick="resetForm()" data-target="#create_todo_modal">
         Create Todo
     </button>
 
