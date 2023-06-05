@@ -7,7 +7,6 @@
 
 @section('content')
     <h1>Todos</h1>
-
     <a class="btn btn-primary" href="/todo-form">Add new Todo</a>
 
     @forelse ($todos as $todo)
