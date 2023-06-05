@@ -4,14 +4,23 @@ body {
   font-family: 'Quicksand', sans-serif;
   background-color: rgb(245, 249, 249);
   font-weight: 400;
+  text-align: center; 
+}
+
+#header{
   text-align: center;
-  
+  font-family: 'Courier New', Courier, monospace;
+
+  margin-bottom: 10px;
 }
 
 div.container {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  
 }
 
 
@@ -24,12 +33,12 @@ div.container {
 }
 
 
+
 div.todos {
   /* background:#e1d9de; */
    /* box-shadow: 0 10px 25px 0 #9191f4; */
   border-radius: 6px;
   padding: 5px;
-  margin: 10px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -69,7 +78,7 @@ p.btn a {
   color:white;
 }
 
-p.btn {
+p.btn, button.btn_add_todo {
   padding:10px;
   border-radius: 10px;
   font-weight: bolder;
@@ -81,7 +90,7 @@ p.btn.edit {
   background-color: rgb(91, 192, 158);
 }
 
-p.btn.edit:hover {
+p.btn.edit:hover {  
 background-color: rgb(94, 220, 178);
 
 }
