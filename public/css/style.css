@@ -23,13 +23,21 @@ div.container {
   
 }
 
+/* .todos_container{
+  margin-bottom:10px 0px;
+  border-radius: 10px;
+  margin-top: 10px;
+  
+} */
+
 
 .todo-complete {
-  background:#afe5a8;
+  background:rgb(235, 235, 228);;
+
 }
 
 .todo-uncomplete {
-  background:#dcdbdb;
+  background:#afeca2;
 }
 
 
@@ -44,11 +52,10 @@ div.todos {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  margin-top: 20px;
   color:black;
+  margin-top: 20px;
   font-weight: 600;
 }
-
 
 .text{
   padding:0px 5px;
